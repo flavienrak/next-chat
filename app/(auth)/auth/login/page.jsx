@@ -1,6 +1,6 @@
 import LoginContainer from "@/components/login/LoginContainer";
 
-export default function loginPage() {
+export default function LoginPage() {
   return (
     <>
       <LoginContainer />

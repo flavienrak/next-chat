@@ -1,3 +1,69 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: calc(0.6vh + 0.45vw + 8px);
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+}
+*::selection {
+  background: var(--primary-color);
+  /* background: #d279ee; */
+  color: var(--text-white);
+}
+
+body {
+  width: 100%;
+  position: relative;
+  scrollbar-color: var(--gris) transparent;
+}
+div,
+label,
+span,
+li,
+i {
+  width: max-content;
+}
+button {
+  text-transform: capitalize;
+}
+img {
+  user-select: none;
+}
+input {
+  outline: none;
+}
+
+.buttonGradient {
+  background: linear-gradient(33deg, #d279ee, #f8c390);
+}
+.scr {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gris) transparent;
+}
+.scr::-webkit-scrollbar {
+  width: 6px;
+  cursor: default;
+}
+
+.scr::-webkit-scrollbar-button:start,
+.scr::-webkit-scrollbar-button:end {
+  display: none;
+}
+.scr::-webkit-scrollbar-thumb {
+  background-color: var(--bg-gray);
+}
+.scr::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gris);
+}
+.scr::-webkit-scrollbar-track {
+  background-color: transparent;
+  transition: 0.15s;
+}
