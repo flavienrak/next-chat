@@ -12,6 +12,7 @@ body {
   scroll-behavior: smooth;
   box-sizing: border-box;
   text-overflow: ellipsis;
+  font-family: sans-serif;
 }
 *::selection {
   background: var(--primary-color);
@@ -43,6 +44,11 @@ input {
 
 .buttonGradient {
   background: linear-gradient(33deg, #d279ee, #f8c390);
+}
+.bgText {
+  color: transparent;
+  background: linear-gradient(33deg, #d279ee, #f8c390);
+  -webkit-background-clip: text;
 }
 .scr {
   scrollbar-width: thin;

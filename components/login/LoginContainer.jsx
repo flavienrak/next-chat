@@ -1,10 +1,14 @@
 "use client";
 
-import { loginController } from "@/lib/controllers/auth.controller";
 import Link from "next/link";
+
+import { loginController } from "@/lib/controllers/auth.controller";
 import { useEffect, useState } from "react";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { fetchPersistInfos } from "@/redux/slices/persistSlice";
+import { useRouter } from "next/navigation";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -12,6 +16,8 @@ export default function LoginContainer() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [name, setName] = useState({ value: "", error: "Nom requis" });
   const [email, setEmail] = useState({ value: "", error: "Email requis" });
+  const dispatch = useDispatch();
+  const { push } = useRouter();
 
   useEffect(() => {
     setIsSubmit(false);
@@ -53,33 +59,36 @@ export default function LoginContainer() {
         name: name.value,
         email: email.value,
       });
-      console.log("res:", res);
+
+      if (res?.token) {
+        dispatch(fetchPersistInfos({ token: res.token }));
+        push("/home");
+      }
     }
   };
 
   return (
-    <div className="bg-[url('/bg.jpg')] h-[100vh] w-full bg-no-repeat bg-left bg-cover">
-      <div className="w-full h-full flex justify-center items-center">
+    <div className="h-[100vh] w-full bg-no-repeat bg-left bg-cover">
+      <div className="w-full h-full flex justify-center items-center flex-col">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col p-8 rounded-sm gap-6 w-max"
         >
-          <div className="text-white text-4xl font-semibold">Se connecter</div>
+          <div className="text-white text-4xl font-semibold bgText">
+            Se connecter
+          </div>
           <div className="flex flex-col w-full gap-6">
             <div className="w-full flex flex-col gap-2">
               <div className="w-full">
-                <label htmlFor="nom" className="text-white font-semibold">
-                  Nom
-                </label>
                 <input
                   type="text"
                   id="nom"
                   required
                   placeholder="Votre nom"
-                  className={`py-2 px-4 focus:outline outline-offset-1 outline-slate-300 transition-all duration-100 rounded-sm placeholder:text-slate-300 w-38 ${
+                  className={`py-2 px-4 focus:outline outline-offset-1 outline-slate-300 transition-all duration-100 rounded-sm placeholder:text-slate-400 w-38 ${
                     isSubmit && name.error !== ""
                       ? "bg-red-400 text-white"
-                      : "bg-slate-50"
+                      : "bg-slate-100"
                   }`}
                   onChange={(e) =>
                     setName((prev) => {
@@ -91,21 +100,14 @@ export default function LoginContainer() {
                 />
               </div>
               <div className="w-full">
-                <label
-                  required
-                  htmlFor="email"
-                  className="text-white font-semibold"
-                >
-                  E-mail
-                </label>
                 <input
                   id="email"
                   type="text"
                   placeholder="Votre e-mail"
-                  className={`py-2 px-4 focus:outline outline-offset-1 outline-slate-300 transition-all duration-100 rounded-sm placeholder:text-slate-300 w-38 ${
+                  className={`py-2 px-4 focus:outline outline-offset-1 outline-slate-300 transition-all duration-100 rounded-sm placeholder:text-slate-400 w-38 ${
                     isSubmit && email.error !== ""
                       ? "bg-red-400 text-white"
-                      : "bg-slate-50"
+                      : "bg-slate-100"
                   }`}
                   onChange={(e) =>
                     setEmail((prev) => {
@@ -120,7 +122,7 @@ export default function LoginContainer() {
             <div className="w-full">
               <button
                 type="submit"
-                className="w-full buttonGradient uppercase text-white py-2 rounded-sm"
+                className="w-full buttonGradient uppercase text-white py-2 rounded-md"
               >
                 Soumettre
               </button>

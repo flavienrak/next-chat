@@ -1,15 +1,15 @@
 "use client";
-import { format } from "date-fns";
+
 import Link from "next/link";
+import { format } from "date-fns";
 import { useSelector } from "react-redux";
 
-export default function HomeContainer() {
+export default function ProfilContainer() {
   const { users } = useSelector((state) => state.users);
-
   return (
     <div className="w-full h-full flex justify-center items-center p-4 flex-col">
       <label htmlFor="" className="text-2xl font-bold">
-        Home
+        Profil
       </label>
       <div className="shadow-lg rounded-lg overflow-hidden w-full">
         <table className="w-full table-fixed">
@@ -45,8 +45,8 @@ export default function HomeContainer() {
           </tbody>
         </table>
       </div>
-      <Link href={"/profil"} className="text-xs text-blue-400 underline p-4">
-        Profil
+      <Link href={"/home"} className="text-xs text-blue-400 underline p-4">
+        Home
       </Link>
     </div>
   );
